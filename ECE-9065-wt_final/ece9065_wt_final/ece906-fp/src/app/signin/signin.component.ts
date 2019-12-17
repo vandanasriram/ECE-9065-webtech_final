@@ -30,10 +30,47 @@ export class SigninComponent implements OnInit {
   ngOnInit() {
     
   }
+  checkEmailValidity() {
+    var email = document.getElementById("email-input");
+    if (email['value'] === '') {
+      email['setCustomValidity']('Please enter email address');
+    } else if (email['validity'].typeMismatch){
+      email['setCustomValidity']('Please enter a valid email address');
+    } else {
+      email['setCustomValidity']('');
+    }
+    return true;
+  }
+  checkPWValidity() {
+    var email = document.getElementById("email-input");
+    if (email['value'] === '') {
+      email['setCustomValidity']('Please enter a password');
+    } else {
+      email['setCustomValidity']('');
+    }
+    return true;
+  }
+
 
   signInSaavn() {
-    var email = document.getElementById("email-input")['value'];
-    var password = document.getElementById("password-input")['value'];
+    var emailC = document.getElementById("email-input");
+    var passwordC = document.getElementById("password-input");
+    if(!emailC['value']) {
+      alert("Please enter email address")
+      return;
+    } else if(!passwordC['value']) {
+      alert("Please enter password")
+      return;
+    } else if(!emailC['checkValidity']()) {
+      alert("Please enter valid email");
+      return;
+    } else if(!passwordC['checkValidity']()) {
+      alert("Please enter valid password");
+      return;
+    }
+    var email = emailC['value'];
+    var password = passwordC['value'];
+
     var userdata = {
       "username" :  email,
       "password" : password
