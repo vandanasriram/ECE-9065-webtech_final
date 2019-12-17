@@ -1,0 +1,312 @@
+<div class="user-landing">
+        <div class="home-header" style="border:1px solid black">
+            <img src="https://rm-lab4.s3.amazonaws.com/books.jpg" width="5%" height="5%">
+            <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search" aria-label="Search">
+            <fa-icon icon="faCoffee"></fa-icon>
+            <button id="search-btn">Search</button>
+            <button id="logout" (click)="logout(this)">Logout</button>
+        </div>
+        <div style="border:1px solid black"> 
+            MUSIC ULTIMATUM!View the latest songs, add reviews and much more... Sign in to enjoy the best!!
+        </div>
+        <div>
+            <button id="grant-privilege" (click)="openGrantPrivilegeForm(this)">Grant privilege to Users</button>
+            <div id="grant-form" hidden="true">
+                    <form id="grantform" #grantform = "ngForm" (ngSubmit) = "grantPrivilege(grantform.value)" >
+                            <label>Users</label><br>
+                            <ng-select id="users"
+                                bindLabel="title"
+                                bindValue="_id"
+                                placeholder="Select users"
+                                appendTo="body"
+                                multiple="true"
+                                [searchable]="true" 
+                                name="users"
+                                [clearable]="true"
+                                [(ngModel)]="selected">
+                                <ng-option disabled>Select Users</ng-option>
+                                <ng-option [value]="user._id" *ngFor="let user of users">
+                                        {{user.username}}
+                                </ng-option>
+                            </ng-select>
+                        <input type = "submit" value = "submit">
+                        <input type = "button" value = "cancel" text="cancel" (click)="cancelGrantPrivilege()" >
+                    </form></div>
+        </div>
+        <div>
+                <button id="actdeactuser" (click)="openActDeactUserForm(this)">Activate/Deactivate Users</button>
+                <div id="actdeactuser-form" hidden="true">
+                        <form id="actdeactuserform" #actdeactform = "ngForm" (ngSubmit) = "actDeactUser(actdeactform.value)" >
+                                <label>Users</label><br>
+                                <select name = "username" id="actdeactselect" placeholder = "username" (change)="changeUser(this)" ngModel>
+                                    <option [value]="u.username" *ngFor="let u of actdeactusers">{{u.username}}</option>
+                                </select>
+                                <select name = "accountType" id="actdeactselecttwo" placeholder = "accountType"  [(ngModel)]="actdeactuser.accountType">
+                                    <option value="activated" >activated</option>
+                                    <option value="deactivated" >deactivated</option>
+                                </select>
+                            <input type = "submit" value = "submit">
+                            <input type = "button" value = "cancel" text="cancel" (click)="cancelActDeactUserForm()" >
+                        </form></div>
+            </div>
+        <div style="border:1px solid black;display:flex;width:100%">
+            <div style="width:50%">
+            <div style="display:flex">
+            <div>
+                <button id="add-song" (click)="openAddSongForm(this)">Add a song</button>
+                <div id="addsong-form" hidden="true">
+                    <form id="addsong" #addsongform = "ngForm" (ngSubmit) = "addSong(addsongform.value)" >
+                    <br>
+                        TITLE:
+                        <input type = "text" name = "title" ngModel>
+                        <br/>
+                        <br>
+                        NAME:
+                        <input type = "text" name = "artist" ngModel>
+                        <br/>
+                        <br>
+                        ALBUM:
+                        <input type = "text" name = "album"  ngModel>
+                        <br/>
+                        <br>
+                        GENRE:
+                        <input type = "text" name = "genre"  ngModel>
+                        <br/>
+                        <br>
+                        DESCRIPTION:
+                        <input type = "text" name = "description"  ngModel>
+                        <br/>
+                        <br>
+                        HEADER:
+                        <input type = "text" name = "head"  ngModel>
+                        <br/>
+                        <br>
+                        RELEASE YEAR:
+                        <input type = "number" name = "year"  ngModel>
+                        <br/>
+                        <br>
+                        TRACK:
+                        <input type = "text" name = "track"  ngModel>
+                        <br/>
+                        <br>
+                        COMMENTS:
+                        <input type = "text" name = "comment"  ngModel>
+                        <br/>
+                        <select name = "visibility" id="visibilityaddsong"  placeholder = "visibility"  ngModel>
+                                <option [value]="true" >true</option>
+                                <option [value]="false" >false</option>
+                        </select>
+                        <input type = "submit" value = "submit">
+                        <input type = "button" value = "cancel" text="cancel" (click)="cancelAddSong()" >
+                    </form>
+                </div>
+            </div>
+            <div>
+                    <button id="edit-song" (click)="openEditSongForm(this)">Edit a song</button>
+                    <div id="editsong-form" hidden="true">
+                        <form id="editsongf" #editsongform = "ngForm" (ngSubmit) = "editSong(editsongform.value)" >
+                            <label>Songs</label><br>
+                            <select name = "_id" id="song-select" placeholder = "songs"  (change)="changeSong(this)" ngModel>
+                                <option [value]="select_song" disabled>Select a song</option>
+                                <option [value]="s._id" *ngFor="let s of songs">{{s.title}}</option>
+                            </select>
+                            <br/>
+                            <input type = "text" name = "createdByUser" hidden="true" [(ngModel)]="editSongData.createdByUser">
+                            <input type = "text" name = "visibility" hidden="true" [(ngModel)]="editSongData.visibility">
+                            <input type = "text" name = "title" placeholder = "title" [(ngModel)]="editSongData.title">
+                            <br/>
+                            <input type = "text" name = "artist" placeholder = "artist" [(ngModel)]="editSongData.artist">
+                            <br/>
+                            <input type = "text" name = "album" placeholder = "album" [(ngModel)]="editSongData.album">
+                            <br/>
+                            <input type = "text" name = "genre" placeholder = "genre" [(ngModel)]="editSongData.genre">
+                            <br/>
+                            <input type = "text" name = "description" placeholder = "description" [(ngModel)]="editSongData.description">
+                            <br/>
+                            <input type = "text" name = "head" placeholder = "head" [(ngModel)]="editSongData.head">
+                            <br/>
+                            <input type = "number" name = "year" placeholder = "year" [(ngModel)]="editSongData.year">
+                            <br/>
+                            <input type = "text" name = "track" placeholder = "track" [(ngModel)]="editSongData.track">
+                            <br/>
+                            <input type = "text" name = "comment" placeholder = "comment" [(ngModel)]="editSongData.comment">
+                            <br/>
+                            <select name = "visibility"  placeholder = "visibility"  [(ngModel)]="editSongData.visibility">
+                                <option [value]="true" >true</option>
+                                <option [value]="false" >false</option>
+                            </select>
+                            <input type = "submit" value = "submit">
+                            <input type = "button" value = "cancel" text="cancel" (click)="cancelEditSong()" >
+                        </form>
+                    </div>
+                </div>
+                <div>
+                        <button id="del-song" (click)="openDeleteSongForm(this)">Delete a song</button>
+                        <div id="delsong-form" hidden="true">
+                            <form id="delsongf" #delsongform = "ngForm" (ngSubmit) = "delSong(delsongform.value)" >
+                                <label>Songs</label><br>
+                                <select name = "_id" id="del-song-select" placeholder = "songs" ngModel>
+                                    <option [value]="s._id" *ngFor="let s of songs">{{s.title}}</option>
+                                </select>
+                                <br/>
+                                <input type = "submit" value = "submit">
+                                <input type = "button" value = "cancel" text="cancel" (click)="cancelDeleteSong()" >
+                            </form>
+                        </div>
+                    </div>
+            </div>
+            <div *ngFor="let s of songs;let i = index" id="song-list">
+                <div></div>
+                <div>{{s.title}}</div>
+                <img src="https://rm-lab4.s3.amazonaws.com/books.jpg" width="10%" height="10%"><br>
+                <div>By {{s.artist}}</div>
+                <div>{{s.description}}</div>
+                <div><button  class="collapsible" (click)="getSongAndReviewInfo(this, s._id, i)">View song information</button></div>
+                <div class="song-info">
+                    <p> HEAD : {{s.head}}</p>
+                    <p> Song Title : {{s.title}}</p>
+                    <p> Album : {{s.album}}</p>
+                    <p> Artist : {{s.artist}}</p>
+                    <p> year : {{s.year}}</p>
+                    <p> Comment : {{s.comment}}</p>
+                    <p> Track : {{s.track}}</p>
+                    <p> Genre : {{s.genre}}</p>
+                    <p> Description : {{s.description}}</p>
+                    <div><button (click)="openReviewForm(this, s._id, i)">Review the song</button>
+                        <div class="review-form" hidden="true">
+                            <label id="reviewdesc-label">Review description </label><br>
+                            <input type="text" class="reviewdesc-input" required="true"><br>
+                            <label id="rating-label">Rating </label><br>
+                            <input type="number" class="rating-input" required="true"><br>
+                            <button id="review-btn" (click)="addReviewToSong(this, s._id, i)">Submit</button>
+                            <input type = "button" value = "cancel" text="cancel" (click)="cancelReviewToSong(i)" >
+                        </div>
+                    </div>
+                        <div *ngFor="let r of s.review;let j = index" id="reviews"> 
+                            <div style="border: 1px solid grey">
+                                <p> Review Date : {{r.createdAt}}</p>
+                                <p> Reviewed By : {{r.userDetails.name}}</p>
+                                <p> Review comment : {{r.value}}</p>
+                                <p> Rating : {{r.rating}}</p>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            </div>
+            <div style="width:50%"><div style="display:flex">
+                <div>
+                    <button id="add-playlist" (click)="openAddPlaylistForm(this)">Add a Playlist</button>
+                    <div id="addplaylist-form" hidden="true">
+                        <form id="addplaylist" #addplaylistform = "ngForm" (ngSubmit) = "addPlaylist(addplaylistform.value)" >
+                            <label>Title</label><br>
+                            <input type = "text" name = "title" placeholder = "title" ngModel>
+                            <br/>
+                            <label>Description</label><br>
+                            <input type = "text" name = "description" placeholder = "description" ngModel>
+                            <br/>
+                            <label>Visibility</label><br>
+                            <input type="radio" name="visibility" value="public" ngModel><label>public</label><br>
+                            <input type="radio" name="visibility" value="private" [checked]="true" ngModel><label>private</label><br>
+                            <label>Songs</label><br>
+                            <ng-select id="playlist-songs"
+                                bindLabel="title"
+                                bindValue="_id"
+                                placeholder="Select song"
+                                appendTo="body"
+                                multiple="true"
+                                [searchable]="true" 
+                                name="songs"
+                                [clearable]="true"
+                                [(ngModel)]="selected">
+                                <ng-option disabled>Select Songs</ng-option>
+                                <ng-option [value]="song._id" *ngFor="let song of songs">
+                                        {{song.title}}
+                                </ng-option>
+                            </ng-select>
+                            <br/>
+                            <input type = "submit" value = "submit">
+                            <input type = "button" value = "cancel" text="cancel" (click)="cancelAddPlaylist()" >
+                        </form>
+                    </div>
+                </div>
+
+                <div>
+                        <button id="edit-playlist" (click)="openEditPlaylistForm(this)">Edit a Playlist</button>
+                        <div id="editplaylist-form" hidden="true">
+                            <form id="editplaylist" #editplaylistform = "ngForm" (ngSubmit) = "editPlaylist(editplaylistform.value)" >
+                                <label>Playlists</label><br>
+                                <select name = "playlists" id="playlist-select" placeholder = "playlists"  (change)="changePlaylist(this)" ngModel>
+                                    <option [value]="up._id" *ngFor="let up of userplaylists">{{up.title}}</option>
+                                </select>
+                                <br/>
+                                <input type = "text" name = "_id" hidden="true" [(ngModel)]="editPlaylistData._id">
+                                <label>Title</label><br>
+                                <input type = "text" name = "title" placeholder = "title"  [(ngModel)]="editPlaylistData.title">
+                                <br/>
+                                <label>Description</label><br>
+                                <input type = "text" name = "description" placeholder = "description" [(ngModel)]="editPlaylistData.description">
+                                <br/>
+                                <label>Visibility</label><br>
+                                <input type="radio" name="visibility" value="public" [(ngModel)]="editPlaylistData.visibility"><label>public</label><br>
+                                <input type="radio" name="visibility" value="private" [checked]="true" [(ngModel)]="editPlaylistData.visibility"><label>private</label><br>
+                                <label>Songs</label><br>
+                                <ng-select id="playlist-songs"
+                                    bindLabel="title"
+                                    bindValue="_id"
+                                    placeholder="Select song"
+                                    appendTo="body"
+                                    multiple="true"
+                                    [searchable]="true" 
+                                    name="songs"
+                                    [clearable]="true"
+                                    [(ngModel)]="editPlaylistData.songs">
+                                    <ng-option disabled>Select Songs</ng-option>
+                                    <ng-option [value]="song._id" *ngFor="let song of songs">
+                                            {{song.title}}
+                                    </ng-option>
+                                </ng-select>
+                                <br/>
+                                <input type = "submit" value = "submit">
+                                <input type = "button" value = "cancel" text="cancel" (click)="cancelEditPlaylist()" >
+                            </form>
+                        </div>
+                </div>
+                <div>
+                        <button id="del-playlist" (click)="openDeletePlaylistForm(this)">Delete a playlist</button>
+                        <div id="delplaylist-form" hidden="true">
+                            <form id="delplaylistf" #delplaylistform = "ngForm" (ngSubmit) = "delPlaylist(delplaylistform.value)" >
+                                <label>Songs</label><br>
+                                <select name = "playlists" id="del-playlist-select" placeholder = "playlists" ngModel>
+                                    <option [value]="up._id" *ngFor="let up of userplaylists">{{up.title}}</option>
+                                </select>
+                                <br/>
+                                <input type = "submit" value = "submit">
+                                <input type = "button" value = "cancel" text="cancel" (click)="cancelDeletePlaylist()" >
+                            </form>
+                        </div>
+                    </div>
+            </div>
+
+                <div style="border-bottom: 1px solid black">Your playlists!!</div>
+                <div *ngFor="let p of userplaylists;let k = index" id="userplaylist">
+                        <div>{{p.title}}</div>
+                        <div>{{p.description}}</div>
+                        <div>{{p.createdAt}}</div>
+                        <div><button  class="collapsible-up" (click)="getPlaylistSongInfo(this, k)">View Playlist information</button></div>
+                        <div class="playlistsonginfo">
+                            <div style="border-bottom:1px solid black" *ngFor="let ps of p.songinfo;let m = index">
+                            <p> HEAD : {{ps.head}}</p>
+                            <p> Song Title : {{ps.title}}</p>
+                            <p> Album : {{ps.album}}</p>
+                            <p> Artist : {{ps.artist}}</p>
+                            <p> year : {{ps.year}}</p>
+                            <p> Comment : {{ps.comment}}</p>
+                            <p> Track : {{ps.track}}</p>
+                            <p> Genre : {{ps.genre}}</p>
+                            <p> Description : {{ps.description}}</p>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>

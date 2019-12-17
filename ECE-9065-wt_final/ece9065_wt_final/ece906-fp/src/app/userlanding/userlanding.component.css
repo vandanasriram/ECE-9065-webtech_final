@@ -1,0 +1,80 @@
+.song-info {
+    display : none;
+    border: 1px solid white;
+    display: none;
+    overflow: hidden;
+}
+
+.playlistsonginfo {
+    display : none;
+    border: 1px solid white;
+    display: none;
+    overflow: hidden;
+}
+
+.otherplaylistsonginfo {
+    display : none;
+    border: 1px solid white;
+    display: none;
+    overflow: hidden;
+}
+
+.collapsible {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    outline: none;
+    font-size: 20px;
+}
+
+.collapsible-up {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    outline: none;
+    font-size: 20px;
+}
+ 
+.collapsible-oup {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    outline: none;
+    font-size: 20px;
+}
+
+.active, .collapsible:hover {
+    background-color: #ccc;
+    color: #444;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    outline: none;
+    font-size: 20px;
+}
+
+.active-up, .collapsible-up:hover {
+    background-color: #ccc;
+    color: #444;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    outline: none;
+    font-size: 20px;
+}
+
+.active-oup, .collapsible-oup:hover {
+    background-color: #ccc;
+    color: #444;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    outline: none;
+    font-size: 20px;
+}

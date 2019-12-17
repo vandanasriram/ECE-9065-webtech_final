@@ -1,0 +1,52 @@
+<div class="home-main" style = "background-color: powderblue">
+    <div class="home-header" style="border:1px solid black">
+        <input class="form-control form-control-sm mr-3 w-75" type="text" [(ngModel)]="searchText" placeholder="Search"
+            aria-label="Search">
+        <fa-icon icon="faCoffee"></fa-icon>
+        <button id="search-btn">Search</button>
+        <button id="register" (click)="register(this)" style="position: absolute; right: 75px;">Register</button>
+        <button id="signin" (click)="orinarySignIn(this)" style="position: absolute; right: 10px;">Sign In</button>
+    </div>
+    <div style="border:1px solid black">
+        MUSIC ULTIMATUM!View the latest songs, add reviews and much more... Sign in to enjoy the best!!
+    </div>
+    <div style="border:1px solid black">
+        <div *ngFor="let s of songs | filter : searchText;let i = index" id="top-songs">
+            <strong>
+                <div>{{s.title}}:</div>
+            </strong>
+            <strong>
+                <div>By {{s.artist}}</div>
+            </strong>
+            <img src="assets\music.jpg" width="10%" height="10%"><br>
+            <div>{{s.description}}</div>
+            <div width="0%"><button class="collapsible" (click)="getSongAndReviewInfo(this, s._id, i)">Song
+                    Details</button></div>
+            <div class="song-info">
+                <p *ngIf="s.head"> HEAD : {{s.head}}</p>
+                <p *ngIf="s.title">Song Title : {{s.title}}</p>
+                <p *ngIf="s.album"> Album : {{s.album}}</p>
+                <p *ngIf="s.artist"> Artist : {{s.artist}}</p>
+                <p *ngIf="s.year"> year : {{s.year}}</p>
+                <p *ngIf="s.comment"> Comment : {{s.comment}}</p>
+                <p *ngIf="s.track"> Track : {{s.track}}</p>
+                <p *ngIf="s.genre"> Genre : {{s.genre}}</p>
+                <p *ngIf="s.description"> Description : {{s.description}}</p>
+                <div>
+                    <h2>Reviews</h2>
+                    <p style="margin-left:5%;"> Number of reviews : {{s.reviewCount}}</p>
+                    <p style="margin-left:5%;">Avergae rating : {{s.avgRating}}</p>
+                </div>
+                <div *ngFor="let r of s.review;let j = index" id="reviews">
+                    <div style="border: 1px solid grey;">
+                        <p> Review Date : {{r.createdAt}}</p>
+                        <p> Reviewed By : {{r.userDetails.name}}</p>
+                        <p> Review comment : {{r.value}}</p>
+                        <p> Rating : {{r.rating}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
